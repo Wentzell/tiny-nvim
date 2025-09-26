@@ -262,9 +262,3 @@ map("n", "<leader>ts", "<cmd>set spell!<CR>", {
   silent = true,
 })
 
-map(
-  "n",
-  "<leader>uS",
-  "<cmd>lua require('utils.cspell').add_word_to_c_spell_dictionary()<CR>",
-  { noremap = true, silent = true, desc = "Add unknown to cspell dictionary" }
-)

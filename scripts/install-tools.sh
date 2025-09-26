@@ -19,51 +19,17 @@ fi
 # Install tools with mise first
 echo "Installing tools with mise..."
 mise use -g \
-  bat@latest \
-  black@latest \
-  bun@latest \
   delta@latest \
-  deno@latest \
   fzf@latest \
   fd@latest \
-  go@latest \
   lazygit@latest \
   lua-language-server@latest \
   neovim@nightly \
-  node@lts \
   rg@latest \
-  ruby@latest \
   ruff@latest \
   rye@latest \
   stylua@latest \
-  ffmpeg@latest \
-  usage@latest \
-  uv@latest \
-  zoxide@latest \
-  yarn@1.22.22
-
-# Install Go tools
-echo "Installing Go tools..."
-go install golang.org/x/tools/gopls@latest
-go install github.com/mgechev/revive@latest
-go install mvdan.cc/sh/v3/cmd/shfmt@latest
-
-# Install npm packages
-echo "Installing npm packages..."
-npm install -g \
-  @antfu/ni \
-  @fsouza/prettierd \
-  @mermaid-js/mermaid-cli \
-  @tailwindcss/language-server \
-  @vtsls/language-server \
-  cspell \
-  oxlint \
-  pnpm \
-  prettier \
-  rustywind \
-  typescript-language-server \
-  typescript \
-  vscode-langservers-extracted npm-check-updates
+  uv@latest
 
   # Install tools with uv
 echo "Installing tools with uv..."

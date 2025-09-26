@@ -59,13 +59,8 @@ Available options:
 ```lua
 -- Project-specific Neovim configuration
 
--- Set TypeScript LSP server
-vim.g.lsp_typescript_server = "ts_ls" -- or "vtsls"
-
 -- Enable additional LSP servers
-vim.g.lsp_on_demands = {
-    "eslint",
-}
+vim.g.lsp_on_demands = {}
 
 -- Enable extra plugins
 vim.g.enable_extra_plugins = {
@@ -111,7 +106,7 @@ local function create_nvim_config()
     -- Get LSP selection
     vim.ui.input({
       prompt = "Enter LSP servers to enable (comma-separated): ",
-      default = "eslint",
+      default = "",
     }, function(lsp_input)
       local selected_lsp = {}
       if lsp_input and lsp_input ~= "" then
@@ -125,9 +120,6 @@ local function create_nvim_config()
       -- Create the config file
       local config = [[
 -- Project-specific Neovim configuration
-
--- Set TypeScript LSP server
-vim.g.lsp_typescript_server = "ts_ls" -- or "vtsls"
 
 -- Enable additional LSP servers
 vim.g.lsp_on_demands = {

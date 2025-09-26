@@ -134,30 +134,12 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   end,
 })
 
--- Set filetype for .hurl files
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  group = augroup "hurl_filetype",
-  pattern = { "*.hurl" },
-  callback = function()
-    vim.opt_local.filetype = "hurl"
-  end,
-})
-
 -- Set filetype for .toml files
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   group = augroup "toml_filetype",
   pattern = { "*.tomg-config*" },
   callback = function()
     vim.opt_local.filetype = "toml"
-  end,
-})
-
--- Set filetype for .ejs files
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  group = augroup "ejs_filetype",
-  pattern = { "*.ejs", "*.ejs.t" },
-  callback = function()
-    vim.opt_local.filetype = "embedded_template"
   end,
 })
 

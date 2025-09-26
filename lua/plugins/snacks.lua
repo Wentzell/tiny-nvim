@@ -23,7 +23,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     optional = true,
-    opts = { ensure_installed = { "css", "latex", "norg", "scss", "typst", "vue", "svelte" } },
+    opts = { ensure_installed = { "latex", "norg", "typst" } },
   },
   -- Todo comments
   {
