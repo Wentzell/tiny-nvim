@@ -1,13 +1,17 @@
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+vim.g.mapleader = ",,"
+vim.g.maplocalleader = ",,"
 
 local opt = vim.opt
+
+opt.more = false
+opt.matchpairs:append("<:>")
 
 -- Borrow those settings from LazyVim
 opt.autowrite = true -- Enable auto write
 -- only set clipboard if not in ssh, to make sure the OSC 52
 -- integration works automatically. Requires Neovim >= 0.10.0
-opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
+-- NOTE: Disabled for now, explicitly yank to system clipboard with <leader>y
+-- opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
 -- Refer https://neovim.io/doc/user/options.html#'completeopt'
 opt.completeopt = "menu,menuone,noselect,fuzzy"
 opt.conceallevel = 0
@@ -32,7 +36,7 @@ opt.ruler = false -- Disable the default ruler
 opt.scrolloff = 4 -- Lines of context
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
 opt.shiftround = true -- Round indent
-opt.shiftwidth = 2 -- Size of an indent
+opt.shiftwidth = 4 -- Size of an indent
 opt.shortmess:append { W = true, I = true, c = true, C = true }
 opt.showmode = false -- Dont show mode since we have a statusline
 opt.sidescrolloff = 8 -- Columns of context

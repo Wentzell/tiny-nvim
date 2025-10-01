@@ -25,10 +25,13 @@ if vim.g.vscode then
     vim.api.nvim_exec_autocmds("User", { pattern = pattern, modeline = false })
 else
     -- Load the theme
+    -- https://terminalcolors.com/themes/kanagawa/wave/
     require("kanagawa").load "wave"
 
     -- Enable LSP servers for Neovim 0.11+
     vim.lsp.enable {
+        "clangd",      -- C/C++
+        "cmake",       -- CMake
         "lua_ls",      -- Lua
         "json",        -- JSON
         "pyright",     -- Python

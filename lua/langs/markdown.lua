@@ -19,6 +19,9 @@ return {
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     opts = {
       latex = { enabled = false },
+      heading = {
+        icons = {}, -- Empty table disables the number icons
+      },
     },
     ft = { "markdown" },
     keys = {

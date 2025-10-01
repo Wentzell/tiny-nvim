@@ -5,6 +5,8 @@ return {
     linters_by_ft = {
       -- codespell: uv tool install codespell
       ["*"] = { "codespell" },
+      -- ruff: uv tool install ruff
+      python = { "ruff" },
     },
     linters = {},
   },

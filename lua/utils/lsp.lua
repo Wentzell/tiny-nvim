@@ -10,7 +10,7 @@ function M.get_default_keymaps()
     { keys = "<leader>cA", func = M.action.source, desc = "Source Actions" },
     { keys = "<leader>cr", func = vim.lsp.buf.rename, desc = "Code Rename" },
     { keys = "<leader>cf", func = vim.lsp.buf.format, desc = "Code Format" },
-    { keys = "<leader>k", func = vim.lsp.buf.hover, desc = "Documentation", has = "hoverProvider" },
+    -- { keys = "<leader>k", func = vim.lsp.buf.hover, desc = "Documentation", has = "hoverProvider" },
     { keys = "K", func = vim.lsp.buf.hover, desc = "Documentation", has = "hoverProvider" },
     { keys = "gd", func = vim.lsp.buf.definition, desc = "Goto Definition", has = "definitionProvider" },
     -- NOTE: Use snack UI for below keymaps
@@ -22,6 +22,9 @@ function M.get_default_keymaps()
 end
 
 M.on_attach = function(client, buffer)
+  -- Disable LSP semantic tokens
+  client.server_capabilities.semanticTokensProvider = nil
+
   local keymaps = M.get_default_keymaps()
   for _, keymap in ipairs(keymaps) do
     if not keymap.has or client.server_capabilities[keymap.has] then

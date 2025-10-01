@@ -22,20 +22,28 @@ mise use -g \
   delta@latest \
   fzf@latest \
   fd@latest \
+  gh@latest \
   lazygit@latest \
   lua-language-server@latest \
-  neovim@nightly \
+  ninja@latest \
   rg@latest \
   ruff@latest \
   rye@latest \
   stylua@latest \
   uv@latest
 
+# Compiled software pieces
+mise plugins add neovim
+mise use -g \
+  neovim@ref:release-0.11 \
+  tmux@latest
+
   # Install tools with uv
 echo "Installing tools with uv..."
 uv tool install codespell
-uv tool install isort
 uv tool install pyright
 uv tool install ruff
+uv tool install cmake-language-server
+uv tool install cmakelang  # Provides cmake-format
 
 echo "All tools have been installed successfully!"

@@ -28,8 +28,8 @@ return {
     opts = {
       keymaps = {
         toggle = {
-          normal = "<C-,>",
-          terminal = "<C-,>",
+          normal = "<leader>ai",
+          terminal = "<leader>ai",
           variants = {
             continue = "<leader>Cc",
             verbose = "<leader>Cv",
@@ -37,15 +37,17 @@ return {
         },
       },
       window = {
-        position = "float",
-        float = {
-          width = "90%",
-          height = "90%",
-          row = "center",
-          col = "center",
-          relative = "editor",
-          border = "double",
-        },
+        position = "vertical",
+        split_ratio = 0.5,
+        -- position = "float",
+        -- float = {
+        --   width = "90%",
+        --   height = "90%",
+        --   row = "center",
+        --   col = "center",
+        --   relative = "editor",
+        --   border = "double",
+        -- },
       },
     },
   },

@@ -15,6 +15,9 @@ return {
     optional = true,
     opts = {
       file_types = { "markdown", "copilot-chat" },
+      quote = {
+        enabled = false,
+      },
     },
     ft = { "markdown", "copilot-chat" },
   },
@@ -27,9 +30,12 @@ return {
     },
     build = "make tiktoken", -- Only on MacOS or Linux
     opts = {
-      question_header = "## User ",
-      answer_header = "## Copilot ",
-      error_header = "## Error ",
+      model = "claude-sonnet-4.5",
+      headers = {
+        user = '👤 You',
+        assistant = '  Copilot',
+        tool = '🔧 Tool',
+      },
       mappings = {
         -- Use tab for completion
         complete = {
@@ -49,7 +55,7 @@ return {
         -- Submit the prompt to Copilot
         submit_prompt = {
           normal = "<CR>",
-          insert = "<C-CR>",
+          insert = "<C-s>",
         },
         -- Accept the diff
         accept_diff = {
@@ -94,7 +100,23 @@ return {
       -- Clear buffer and chat history
       { "<leader>al", "<cmd>CopilotChatReset<cr>", desc = "CopilotChat - Clear buffer and chat history" },
       -- Toggle Copilot Chat Vsplit
-      { "<leader>av", "<cmd>CopilotChatToggle<cr>", desc = "CopilotChat - Toggle" },
+      {
+        "<leader>av",
+        function()
+          local chat = require("CopilotChat")
+          local mode = vim.fn.mode()
+          local config = {}
+
+          -- In normal mode: add visible buffers
+          -- In visual mode: don't add config (uses selection by default)
+          if mode == 'n' then
+            config.sticky = { "#buffers:visible" }
+          end
+          chat.toggle(config)
+        end,
+        desc = "CopilotChat - Toggle with visible buffers",
+        mode = { "n", "v" }
+      },
       -- Copilot Chat Models
       { "<leader>a?", "<cmd>CopilotChatModels<cr>", desc = "CopilotChat - Select Models" },
       -- Copilot Chat Agents

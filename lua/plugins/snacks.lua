@@ -1,10 +1,10 @@
 local logo = [[
-      ██╗████████╗    ███╗   ███╗ █████╗ ███╗   ██╗
-      ██║╚══██╔══╝    ████╗ ████║██╔══██╗████╗  ██║
-      ██║   ██║       ██╔████╔██║███████║██╔██╗ ██║
-      ██║   ██║       ██║╚██╔╝██║██╔══██║██║╚██╗██║
-      ██║   ██║       ██║ ╚═╝ ██║██║  ██║██║ ╚████║
-      ╚═╝   ╚═╝       ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝
+      ███╗   ██╗██╗   ██╗██╗███╗   ███╗
+      ████╗  ██║██║   ██║██║████╗ ████║
+      ██╔██╗ ██║██║   ██║██║██╔████╔██║
+      ██║╚██╗██║╚██╗ ██╔╝██║██║╚██╔╝██║
+      ██║ ╚████║ ╚████╔╝ ██║██║ ╚═╝ ██║
+      ╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝     ╚═╝
 ]]
 
 logo = string.rep("\n", 4) .. logo .. "\n\n"
@@ -175,11 +175,9 @@ return {
           { icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
           {
             section = "terminal",
-            title = "Productsway.com",
-            icon = "©",
             --  local user = hostname or vim.env.USER or "User"
             --  local user = vim.fn.expand("$USER")
-            cmd = "echo Welcome back, " .. hostname .. "! | bunx cowsay --think",
+            cmd = "echo 'Welcome back, " .. vim.fn.expand "$USER" .. "!'",
           },
           { section = "startup" },
         },
@@ -221,12 +219,13 @@ return {
         enabled = true,
       },
       input = { enabled = true },
-      scroll = { enabled = true },
+      scroll = { enabled = false },
       notifier = {
         enabled = true,
         --- Available style: "compact"|"fancy"|"minimal"
         style = "fancy", -- similar to the default nvim-notify style
         level = vim.log.levels.WARN, -- Show only warning and above
+        timeout = 5000, -- Notification timeout in milliseconds (default: 3000)
       },
       quickfile = { enabled = true },
       statuscolumn = {
@@ -287,7 +286,7 @@ return {
       },
       -- Explorer
       {
-        "<leader>e",
+        "<leader>n",
         function()
           Snacks.explorer {
             auto_close = true,
