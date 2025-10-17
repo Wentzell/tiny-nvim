@@ -70,7 +70,7 @@ opt.fillchars = {
   fold = " ",
   foldsep = " ",
   diff = "╱",
-  eob = " ",
+  eob = " "
 }
 opt.foldlevel = 99
 opt.smoothscroll = true
