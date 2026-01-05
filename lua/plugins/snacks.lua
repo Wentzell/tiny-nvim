@@ -136,6 +136,16 @@ return {
             enabled = false, -- show file icons
           },
         },
+        ---@class snacks.picker.actions.Config
+        actions = {
+          qflist_and_jump = function(picker)
+            local actions = require("snacks.picker").actions
+            actions.qflist(picker)
+            vim.schedule(function()
+              vim.cmd("cfirst")
+            end)
+          end,
+        },
         ---@class snacks.picker.win.Config
         win = {
           -- input window
@@ -146,6 +156,8 @@ return {
               -- Hidden
               ["<a-.>"] = { "toggle_hidden", mode = { "i", "n" } },
               ["<a-h"] = false,
+              -- Send to quickfix and navigate
+              [";n"] = { "qflist_and_jump", mode = { "n", "i" } },
             },
           },
         },
@@ -266,9 +278,9 @@ return {
       {
         "<leader>/",
         function()
-          Snacks.picker.grep()
+          Snacks.picker.grep_buffers()
         end,
-        desc = "Grep",
+        desc = "Grep Open Buffers",
       },
       {
         "<leader>:",
