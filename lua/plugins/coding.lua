@@ -53,6 +53,7 @@ return {
     -- If you use nix, you can build from source using latest nightly rust with:
     -- build = 'nix run .#build-plugin',
     dependencies = {
+      "saghen/blink.lib",
       -- optional: provides snippets for the snippet source
       "L3MON4D3/LuaSnip",
       version = "v2.*",
