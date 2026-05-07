@@ -44,7 +44,7 @@ return {
   {
     "saghen/blink.cmp",
     event = "InsertEnter",
-    enable = completion == "blink",
+    enabled = completion == "blink",
     -- use a release tag to download pre-built binaries
     -- version = "1.*",
     branch = "main", -- NOTE: use main branch for latest features and fixes, use version tag for stable releases
@@ -53,6 +53,7 @@ return {
     -- If you use nix, you can build from source using latest nightly rust with:
     -- build = 'nix run .#build-plugin',
     dependencies = {
+      -- v2 requires blink.lib as a sibling package
       "saghen/blink.lib",
       -- optional: provides snippets for the snippet source
       "L3MON4D3/LuaSnip",
