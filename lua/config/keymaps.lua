@@ -82,6 +82,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
+-- Toggle diagnostics
+local function toggle_diagnostics()
+  if vim.diagnostic.is_enabled() then
+    vim.diagnostic.enable(false)
+    print "Diagnostics Off"
+  else
+    vim.diagnostic.enable(true)
+    print "Diagnostics On"
+  end
+end
+map("n", "<leader>d", toggle_diagnostics, { desc = "Toggle Diagnostics" })
+
 -- Terminal mode window navigation
 map("t", "<leader>h", "<cmd>wincmd h<cr>", { desc = "Go to left window" })
 map("t", "<leader>j", "<cmd>wincmd j<cr>", { desc = "Go to lower window" })
