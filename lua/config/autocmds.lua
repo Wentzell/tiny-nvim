@@ -133,15 +133,6 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   end,
 })
 
--- Set filetype for .hurl files
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  group = augroup "hurl_filetype",
-  pattern = { "*.hurl" },
-  callback = function()
-    vim.opt_local.filetype = "hurl"
-  end,
-})
-
 -- Set filetype for .toml files
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   group = augroup "toml_filetype",
@@ -159,41 +150,6 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     vim.opt_local.filetype = "json"
   end,
 })
-
-vim.filetype.add {
-  extension = {
-    cshtml = "aspnetcorerazor",
-    edge = "edge",
-    eex = "eelixir",
-    ejs = "ejs",
-    gohtml = "gohtml",
-    gohtmltmpl = "gohtmltmpl",
-    gowork = "gowork",
-    gotmpl = "gotmpl",
-    handlebars = "handlebars",
-    hbs = "hbs",
-    jade = "jade",
-    leaf = "leaf",
-    mdx = "mdx",
-    mustache = "mustache",
-    njk = "njk",
-    nunjucks = "nunjucks",
-    pcss = "postcss",
-    razor = "razor",
-    re = "reason",
-    sss = "sugarss",
-    templ = "templ",
-  },
-  filename = {
-    ["go.work"] = "gowork",
-  },
-  pattern = {
-    [".*%.blade%.php"] = "blade",
-    [".*%.django%.html"] = "django-html",
-    [".*%.djhtml"] = "django-html",
-    [".*%.html%.eex"] = "html-eex",
-  },
-}
 
 -- LSP
 local completion = vim.g.completion_mode or "blink" -- or 'native'
