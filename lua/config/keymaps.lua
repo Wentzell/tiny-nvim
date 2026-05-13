@@ -76,16 +76,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end
 })
 
-vim.g.diagnostics_is_on = true
 local function toggle_diagnostics()
-  if vim.g.diagnostics_is_on then
+  if vim.diagnostic.is_enabled() then
     print("Diagnostics Off")
-    vim.g.diagnostics_is_on = false
-    vim.diagnostic.disable()
+    vim.diagnostic.enable(false)
   else
     print("Diagnostics On")
-    vim.g.diagnostics_is_on = true
-    vim.diagnostic.enable()
+    vim.diagnostic.enable(true)
   end
 end
 
