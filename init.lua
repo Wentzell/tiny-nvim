@@ -31,6 +31,10 @@ else
 
   -- Enable LSP servers per filetype (Neovim 0.11+)
   local lsp_by_ft = {
+    c = { "clangd" },
+    cpp = { "clangd" },
+    cuda = { "clangd" },
+    cmake = { "cmake" },
     lua = { "lua_ls" },
     json = { "json" },
     jsonc = { "json" },
