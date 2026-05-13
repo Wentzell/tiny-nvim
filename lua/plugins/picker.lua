@@ -91,17 +91,106 @@ local function pick_git_files_all(opts)
   })
 end
 
+-- Send all currently-matched items to the quickfix list, close the picker, and jump to the first match.
+local function qflist_and_jump()
+  local MiniPick = require "mini.pick"
+  local matches = MiniPick.get_picker_matches()
+  if not matches then
+    return
+  end
+  local items = matches.all or {}
+  local qflist = {}
+  for _, item in ipairs(items) do
+    if type(item) == "table" and item.path then
+      table.insert(qflist, {
+        filename = item.path,
+        lnum = item.lnum or 1,
+        col = item.col or 1,
+        text = item.text or "",
+      })
+    elseif type(item) == "string" then
+      local path, lnum, col, text = item:match "^([^\0:]+)[\0:](%d+)[\0:](%d+)[\0:](.*)$"
+      if not path then
+        path, lnum, col, text = item:match "^([^:]+):(%d+):(%d+):(.*)$"
+      end
+      if path then
+        table.insert(qflist, {
+          filename = path,
+          lnum = tonumber(lnum) or 1,
+          col = tonumber(col) or 1,
+          text = text or "",
+        })
+      end
+    end
+  end
+  MiniPick.stop()
+  if #qflist > 0 then
+    vim.fn.setqflist(qflist, "r")
+    vim.schedule(function()
+      vim.cmd "cfirst"
+    end)
+  end
+end
+
+local qflist_mapping = {
+  qflist_and_jump = { char = ";n", func = qflist_and_jump },
+}
+
 -- Normal grep (respects .gitignore)
 -- opts.pattern: optional pattern to pre-fill search
 local function pick_grep_live(opts)
   local MiniPick = require "mini.pick"
-  if opts and opts.pattern then
+  opts = vim.tbl_deep_extend("force", opts or {}, { mappings = qflist_mapping })
+  if opts.pattern then
     local pattern = opts.pattern
     opts.pattern = nil
     MiniPick.builtin.grep({ pattern = pattern }, opts)
   else
-    MiniPick.builtin.grep_live(nil, opts or {})
+    MiniPick.builtin.grep_live(nil, opts)
   end
+end
+
+-- Live grep restricted to files of currently open, file-backed buffers
+local function pick_grep_open_buffers()
+  local MiniPick = require "mini.pick"
+  local files = {}
+  local seen = {}
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buftype == "" then
+      local name = vim.api.nvim_buf_get_name(buf)
+      if name ~= "" and not seen[name] and vim.fn.filereadable(name) == 1 then
+        seen[name] = true
+        table.insert(files, name)
+      end
+    end
+  end
+  if #files == 0 then
+    vim.notify("No file-backed buffers open", vim.log.levels.WARN)
+    return
+  end
+  local pattern = vim.fn.input "Grep open buffers: "
+  if pattern == "" then
+    return
+  end
+  local command = {
+    "rg",
+    "--column",
+    "--line-number",
+    "--no-heading",
+    "--field-match-separator",
+    "\\x00",
+    "--color=never",
+    "--smart-case",
+    "--",
+    pattern,
+  }
+  for _, f in ipairs(files) do
+    table.insert(command, f)
+  end
+  MiniPick.builtin.cli({ command = command }, {
+    source = { name = "Grep Open Buffers" },
+    mappings = qflist_mapping,
+  })
 end
 
 -- Grep with hidden files (respects .gitignore)
@@ -359,7 +448,7 @@ return {
     keys = {
       -- Picker
       { "<leader>,", pick_buffers, desc = "Switch Buffer" },
-      { "<leader>/", pick_grep_live, desc = "Grep" },
+      { "<leader>/", pick_grep_open_buffers, desc = "Grep Open Buffers" },
       { "<leader>:", pick_commands_history, desc = "Command History" },
       { "<leader><space>", pick_files, desc = "Find Files" },
 
