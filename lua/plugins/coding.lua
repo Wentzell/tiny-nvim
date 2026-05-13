@@ -308,11 +308,10 @@ return {
     event = "VeryLazy",
   },
   -- Learn those tips from LazyVim
-  -- Auto pairs
+  -- Auto pairs: disabled, prefer typing closers manually
   {
     "echasnovski/mini.pairs",
-    event = "VeryLazy",
-    opts = {},
+    enabled = false,
   },
   -- Extend and create a/i textobjects
   {
